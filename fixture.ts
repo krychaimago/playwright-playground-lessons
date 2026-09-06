@@ -5,7 +5,7 @@ type FixtureType = {
     pom: PageManager
 }
 
-export const test =base.extend<FixtureType>({
+export const test = base.extend<FixtureType>({
     pom: async ({ page }, use) => {
         await page.goto('/')
         const manager = new PageManager(page)
