@@ -1,28 +1,21 @@
-import { test } from '@playwright/test'
-import { PageManager } from '../page-objects/page-manager'
+import { test } from '../fixture'
 import { faker } from '@faker-js/faker'
 
-test.beforeEach(async ({ page }) => {
-    await page.goto('/')
-})
-
-test('Navigate to form layouts page', async ({ page }) => {
-    const pom = new PageManager(page)
+test('Navigate to form layouts page', async ({ pom }) => {
     await pom.navigateTo.formLayoutsPage()
     await pom.navigateTo.datePickerPage()
     await pom.navigateTo.toasterPage()
     await pom.navigateTo.smartTablePage()
 })
 
-test('Parametrized page object methods', async ({ page }) => {
-    const pom = new PageManager(page)
+test('Parametrized page object methods', async ({ pom }) => {
     const randomFullName = faker.person.fullName()
     const randomEmail = faker.internet.email({ provider: 'test.com' })
     await pom.navigateTo.formLayoutsPage()
     await pom.formLayoutsPage.submitUsingTheGridForm(process.env.TEST_USER_EMAIL!, process.env.TEST_USER_PASSWORD!, 'Option 2')
     //await page.waitForTimeout(500)
     // await page.screenshot({path: 'screenshots/formLayoutsPage.png'})
-    const formLayoutPageBuffer = await page.screenshot()
+    //const formLayoutPageBuffer = await page.screenshot()
     //console.log(formLayoutPageBuffer.toString('base64'))
     await pom.formLayoutsPage.submitInlineForm(randomFullName, randomEmail, false)
     //await page.locator('nb-card', { hasText: "Inline form" }).screenshot({ path: 'screenshots/inlineForm.png' })
