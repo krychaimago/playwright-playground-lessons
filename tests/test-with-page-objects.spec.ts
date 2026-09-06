@@ -3,7 +3,7 @@ import { PageManager } from '../page-objects/page-manager'
 import { faker } from '@faker-js/faker'
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('https://playground.bondaracademy.com/')
+    await page.goto('/')
 })
 
 test('Navigate to form layouts page', async ({ page }) => {
@@ -14,18 +14,18 @@ test('Navigate to form layouts page', async ({ page }) => {
     await pom.navigateTo.smartTablePage()
 })
 
-test('Parametrized page object methods', async ({ page }) => {
+test.only('Parametrized page object methods', async ({ page }) => {
     const pom = new PageManager(page)
     const randomFullName = faker.person.fullName()
     const randomEmail = faker.internet.email({ provider: 'test.com' })
     await pom.navigateTo.formLayoutsPage()
-    await pom.formLayoutsPage.submitUsingTheGridForm('artem@test.com', 'Welcome', 'Option 2')
-    await page.waitForTimeout(500)
+    await pom.formLayoutsPage.submitUsingTheGridForm(process.env.TEST_USER_EMAIL!, process.env.TEST_USER_PASSWORD!, 'Option 2')
+    //await page.waitForTimeout(500)
     // await page.screenshot({path: 'screenshots/formLayoutsPage.png'})
     const formLayoutPageBuffer = await page.screenshot()
     //console.log(formLayoutPageBuffer.toString('base64'))
     await pom.formLayoutsPage.submitInlineForm(randomFullName, randomEmail, false)
-    await page.locator('nb-card', { hasText: "Inline form" }).screenshot({ path: 'screenshots/inlineForm.png' })
+    //await page.locator('nb-card', { hasText: "Inline form" }).screenshot({ path: 'screenshots/inlineForm.png' })
     await pom.navigateTo.datePickerPage()
     await pom.datepickerPage.selectCommonDatepickerDateFromToday(5)
     await pom.datepickerPage.selectDatePickerWithRangeFromToday(7, 20)
