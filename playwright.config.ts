@@ -22,6 +22,10 @@ export default defineConfig({
 
   projects: [
     {
+      name: 'mobile-tests',
+      use: { ...devices['Pixel 7'] },
+    },
+    {
       name: 'page-object-tests',
       testMatch: '*page-objects.spec.ts',
     },
