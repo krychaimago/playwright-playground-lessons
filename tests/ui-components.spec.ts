@@ -13,7 +13,7 @@ test.describe('Form Layouts page', () => {
     })
 
     test('Input fields', async ({ page }, testInfo) => {
-        if(testInfo.retry){
+        if (testInfo.retry) {
             //clean test data
         }
         const usingTheGridEmailInput = page.locator('nb-card', { hasText: "Using the Grid" }).getByRole('textbox', { name: "Email" })
@@ -30,7 +30,7 @@ test.describe('Form Layouts page', () => {
 
     })
 
-    test('radio buttons', async ({ page }) => {
+    test('radio buttons', { tag: ['@smoke', '@radio'] }, async ({ page }) => {
         const usingTheGridForm = page.locator('nb-card', { hasText: "Using the Grid" })
 
         await usingTheGridForm.getByLabel('Option 1').check({ force: true })
