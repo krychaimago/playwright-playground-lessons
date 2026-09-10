@@ -123,5 +123,11 @@ test('Assertions', async({page}) => {
     //Soft assertion
     await expect.soft(basicFormSectionButton).toHaveText('Submit')
     await basicFormSectionButton.click()
+})
 
+test('Generated test', async ({ page }) => {
+    await page.getByRole('textbox', { name: 'Email address' }).fill('test@test.com')
+    await page.locator('#exampleInputPassword1').click();
+    await page.locator('.form-group > .status-basic > .label > .custom-checkbox').click();
+    await page.locator('nb-card').filter({ hasText: 'Basic formEmail' }).getByRole('button').click();
 })
